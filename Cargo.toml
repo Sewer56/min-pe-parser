@@ -1,0 +1,31 @@
+[package]
+name = "min-pe-parser"
+version = "0.1.0"
+edition = "2021"
+description = "An extremely minimal PE parser. Only supports features used by Reloaded3 libraries/runtime."
+repository = "https://github.com/Sewer56/min-pe-parser"
+license-file = "LICENSE"
+include = ["src/**/*"]
+
+[features]
+default = ["std"]
+std = []
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[dev-dependencies]
+
+# Profile Build
+[profile.profile]
+inherits = "release"
+debug = true
+codegen-units = 1
+lto = true
+strip = false  # No stripping!!
+
+# Optimized Release Build
+[profile.release]
+codegen-units = 1
+lto = true
+strip = true  # Automatically strip symbols from the binary.
+panic = "abort"
+

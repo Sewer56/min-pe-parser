@@ -1,0 +1,15 @@
+name: Deploy MkDocs
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy MkDocs
+        uses: Reloaded-Project/reloaded-project-configurations-rust/.github/actions/deploy-mkdocs-documentation@v1
+        with:
+          REQUIREMENTS: ./docs/requirements.txt
