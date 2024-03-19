@@ -2,13 +2,19 @@
 name = "min-pe-parser"
 version = "0.1.0"
 edition = "2021"
-description = "An extremely minimal PE parser. Only supports features used by Reloaded3 libraries/runtime."
+description = "An extremely minimal optimized PE parser. Only supports features used by Reloaded3 libraries/runtime."
 repository = "https://github.com/Sewer56/min-pe-parser"
 license-file = "LICENSE"
+readme = "README.md"
 include = ["src/**/*"]
+
+[dependencies]
+bitflags = "2.4.2"
+simple_endian = "0.3.2"
 
 [features]
 default = ["std"]
+size_opt = []
 std = []
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html

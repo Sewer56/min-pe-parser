@@ -2,3 +2,4 @@ target
 /Cargo.lock
 /fuzz/hfuzz_target
 /.vscode
+tarpaulin_report.html

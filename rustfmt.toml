@@ -1,0 +1,5 @@
+max_width = 120
+# Enable more aggressive formatting options
+merge_imports = true
+reorder_imports = true
+reorder_modules = true

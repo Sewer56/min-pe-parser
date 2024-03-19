@@ -3,42 +3,59 @@
 [![Crates.io](https://img.shields.io/crates/v/min-pe-parser.svg)](https://crates.io/crates/min-pe-parser)
 [![Docs.rs](https://docs.rs/min-pe-parser/badge.svg)](https://docs.rs/min-pe-parser)
 [![CI](https://github.com/Sewer56/min-pe-parser/actions/workflows/rust.yml/badge.svg)](https://github.com/Sewer56/min-pe-parser/actions)
-
------------------------
-
-## Additional Setup Required!!
-
-Additional setup might be required.  
-Once you do the stuff under this text, delete this section.  
-
-### Code Coverage
-To setup code coverage for this project. Login into [Codecov][codecov] and add this repository from your list of tracked repos.
-
-### Setup Documentation
-
-If you don't have a `docs/Reloaded` folder, an error occurred, and you might need to add it manually as submodule:
-
-```
-git submodule add https://github.com/Reloaded-Project/Reloaded.MkDocsMaterial.Themes.R2.git docs/Reloaded
-```
-
-Once you make your first commit to GitHub, you'll need to do the following:
-- Go to `Settings -> Pages` in your repo and select `gh-pages` branch to enable GitHub Pages.
-
-### Setup API Key (crates.io)
-
-You'll need to set up an API key to publish to `crates.io` on tag.
-
-- Go to `Settings -> Secrets -> Actions` in your repo and add environment secret named `CRATES_IO_TOKEN`.  
-- Paste your API key generated in [crates.io (Account Settings -> API Tokens)][crates-io-key].  
-
------------------------
+[![codecov](https://codecov.io/gh/Sewer56/min-pe-parser/graph/badge.svg)](https://codecov.io/gh/Sewer56/min-pe-parser)
 
 ## About
 
-An extremely minimal PE parser. Only supports features used by Reloaded3 libraries/runtime.
+Optimized routines for parsing certain parts of the PE header, optimized for use in the Reloaded3 libraries & runtime.
 
+Aimed at minimizing code size down to the absolute minimum.
 You can learn more about this project in the [dedicated documentation page][docs].
+
+## Usage
+
+This package provides the following utility functions:
+- `get_import_dll_names` - Extracts the names of DLLs that a PE file imports.
+- `parse_pe_sections` - Retrieves the names of sections defined within the PE file.
+
+### Extracting Imported DLL Names
+
+To extract the names of DLLs that a PE file imports, use the `get_import_dll_names` function. 
+
+This function requires a pointer to the start of the PE file in memory, flags to indicate whether 
+the PE file is mapped into memory already and whether to force interpretation as PE32 or PE64 format.
+
+```rust
+// Assuming `pe_bytes` is a byte slice containing your PE file data
+let pe_start = pe_bytes.as_ptr() as *const c_void;
+let is_mapped = false; // Set to true if the PE file is already mapped into memory
+let force_pe64 = false;// Force PE64 format
+let force_pe32 = false;// Force PE32 format
+
+let imported_dll_names = unsafe {
+    get_import_dll_names(pe_start, is_mapped, force_pe64, force_pe32)
+};
+println!("Imported DLLs: {:?}", imported_dll_names);
+```
+
+### Retrieving Section Names
+
+To get the names of sections within the PE file, use the `get_section_names` function. 
+Similar to `get_import_dll_names`, this function requires a pointer to the start of the PE file 
+and flags for PE format interpretation.
+
+```rust
+let section_names = unsafe {
+    get_section_names(pe_start, force_pe64, force_pe32)
+};
+println!("Section Names: {:?}", section_names);
+```
+
+### Optimization
+
+The `force_pe64` and `force_pe32` flags are used to force the parser to interpret the PE file as 
+a specific format. This is a compiler hint that can be used to say 'I will only ever deal with PE32'
+files, etc. Saves a few instructions.
 
 ## Development
 
