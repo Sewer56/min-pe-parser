@@ -10,6 +10,7 @@ pub mod utils {
     pub mod get_import_dll_names;
     pub mod get_section_names;
     #[cfg(test)]
+    #[allow(unused_attributes)]
     #[cfg_attr(tarpaulin, ignore)]
     pub mod test_utils;
 }

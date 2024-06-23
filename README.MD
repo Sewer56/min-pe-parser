@@ -16,7 +16,8 @@ You can learn more about this project in the [dedicated documentation page][docs
 
 This package provides the following utility functions:
 - `get_import_dll_names` - Extracts the names of DLLs that a PE file imports.
-- `parse_pe_sections` - Retrieves the names of sections defined within the PE file.
+- `get_section_names` - Retrieves the names of sections defined within the PE file.
+- `get_export_rva` - Retrieves the Relative Virtual Address (RVA) of a specified export in the PE file.
 
 ### Extracting Imported DLL Names
 
@@ -49,6 +50,26 @@ let section_names = unsafe {
     get_section_names(pe_start, force_pe64, force_pe32)
 };
 println!("Section Names: {:?}", section_names);
+```
+
+### Retrieving Export RVA
+
+To get the Relative Virtual Address (RVA) of a specific export in the PE file, use the 
+`get_export_rva` function.
+
+This function requires a pointer to the start of the PE file, the name of the export,
+and flags similar to the other functions.
+
+```rust
+let export_name = "SomeExportFunction";
+let export_rva = unsafe {
+    get_export_rva(pe_start, export_name, is_mapped, force_pe64, force_pe32)
+};
+if export_rva != usize::MAX {
+    println!("RVA of {}: 0x{:X}", export_name, export_rva);
+} else {
+    println!("Export {} not found", export_name);
+}
 ```
 
 ### Optimization
