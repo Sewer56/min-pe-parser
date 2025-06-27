@@ -1,4 +1,5 @@
 use crate::{prelude::*, types::*};
+use alloc::string::{String, ToString};
 use core::{ffi::CStr, hint::unreachable_unchecked, mem::size_of, slice};
 
 /// Converts a "Relative Virtual Address" (RVA) to an absolute offset.
@@ -88,7 +89,7 @@ pub(crate) unsafe fn get_null_terminated_utf8_string(ptr: pu8) -> String {
     // SAFETY: The caller guarantees that the string is valid UTF-8 and null-terminated.
     let c_str = CStr::from_ptr(ptr as *const i8);
     let str_slice = c_str.to_str().unwrap_unchecked(); // Safe due to the UTF-8 guarantee
-    str_slice.to_owned() // Convert the &str to a String
+    str_slice.to_string() // Convert the &str to a String
 }
 
 #[inline]
@@ -107,8 +108,8 @@ pub(crate) unsafe fn get_null_terminated_utf8_string_with_max_length(ptr: pu8, m
     let slice = slice::from_raw_parts(ptr, len);
 
     // SAFETY: The caller guarantees that the string is valid UTF-8.
-    let str_slice = std::str::from_utf8_unchecked(slice);
-    str_slice.to_owned()
+    let str_slice = core::str::from_utf8_unchecked(slice);
+    str_slice.to_string()
 }
 
 #[inline]

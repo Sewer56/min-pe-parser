@@ -1,7 +1,7 @@
 use super::common::*;
 use crate::types::*;
-use core::{ptr, ptr::write};
-use std::os::raw::c_void;
+use alloc::{string::String, vec, vec::Vec};
+use core::{ffi::c_void, ptr, ptr::write};
 
 /// Get the names of the sections in the PE file.
 ///
