@@ -1,8 +1,12 @@
 //! # Some Cool Reloaded Library
 //! Here's the crate documentation.
-#![feature(const_refs_to_static)]
 #![feature(optimize_attribute)]
-#![cfg_attr(not(feature = "std"), no_std)]
+#![no_std]
+
+#[cfg(feature = "std")]
+extern crate std;
+
+extern crate alloc;
 
 pub mod utils {
     pub(crate) mod common;

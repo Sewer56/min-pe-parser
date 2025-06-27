@@ -1,7 +1,6 @@
 use super::common::*;
 use crate::{prelude::*, types::*};
-use core::ptr;
-use std::os::raw::c_void;
+use core::{ffi::c_void, ptr};
 
 /// Retrieves the offset of the given export in Virtual Memory,
 /// relative to the start of the PE file. Add the returned value to the address
@@ -167,7 +166,7 @@ mod tests {
         get_export_rva::get_export_rva,
         test_utils::{RELOADED_BOOTSTRAPPER_DLL_X64, RELOADED_BOOTSTRAPPER_DLL_X86},
     };
-    use std::os::raw::c_void;
+    use core::ffi::c_void;
 
     // Define a struct to hold test data for export names and their expected RVAs.
     struct ExportTestData {

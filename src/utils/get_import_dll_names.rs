@@ -1,7 +1,7 @@
 use super::common::*;
 use crate::{prelude::*, types::*};
-use core::{mem::size_of, ptr, ptr::write};
-use std::os::raw::c_void;
+use alloc::{string::String, vec, vec::Vec};
+use core::{ffi::c_void, mem::size_of, ptr, ptr::write};
 
 /// Get the names of the DLLs that are imported by the PE file.
 ///
