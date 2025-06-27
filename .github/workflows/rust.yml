@@ -36,10 +36,17 @@ jobs:
       #       thus as per recommendation of cargo-semver-checks, we're using stable here.
       - name: Run cargo-semver-checks
         if: github.event_name == 'pull_request' || startsWith(github.ref, 'refs/tags/')
+        shell: bash
         run: |
-          # cargo-semver-checks is not always up to date with nightly, so we're using stable.
-          cargo +stable install cargo-semver-checks --locked
-          cargo +stable semver-checks --target ${{ matrix.target }}
+          SEARCH_RESULT=$(cargo search "^min-pe-parser$" --limit 1)
+
+          if echo "$SEARCH_RESULT" | grep -q "^min-pe-parser "; then
+            # cargo-semver-checks is not always up to date with nightly, so we're using stable.
+            cargo +stable install cargo-semver-checks --locked
+            cargo +stable semver-checks --target ${{ matrix.target }}
+          else
+            echo "No previous version found on crates.io. Skipping semver checks."
+          fi
 
       - name: Build documentation
         if: github.event_name == 'pull_request' || startsWith(github.ref, 'refs/tags/')
