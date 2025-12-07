@@ -1,5 +1,15 @@
 max_width = 120
+
 # Enable more aggressive formatting options
-merge_imports = true
 reorder_imports = true
 reorder_modules = true
+
+# Unstable
+# unstable_features = true
+# format_code_in_doc_comments = true
+# format_strings = true
+# imports_granularity = "Crate"
+# imports_layout = "Vertical" # Linus Torvalds approved, in Rant https://lore.kernel.org/lkml/CAHk-=wgO7S_FZUSBbngG5vtejWOpzDfTTBkVvP3_yjJmFddbzA@mail.gmail.com/T/#me533a148abe97c29e0e7150508c42345b2a64e13 .
+# reorder_impl_items = true
+# group_imports = "StdExternalCrate"
+# wrap_comments = true
