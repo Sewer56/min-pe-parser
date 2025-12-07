@@ -1,6 +1,6 @@
 use super::common::*;
 use crate::{prelude::*, types::*};
-use alloc::{string::String, vec, vec::Vec};
+use alloc::{string::String, vec::Vec};
 use core::{ffi::c_void, mem::size_of, ptr, ptr::write};
 
 /// Get the names of the DLLs that are imported by the PE file.
@@ -113,6 +113,7 @@ pub unsafe fn get_import_dll_names(
 mod tests {
     use super::*;
     use crate::utils::test_utils::{RELOADED_BOOTSTRAPPER_DLL_X64, RELOADED_BOOTSTRAPPER_DLL_X86};
+    use alloc::vec;
 
     #[test]
     fn test_reloaded_bootstrapper_dll_imports_x64() {

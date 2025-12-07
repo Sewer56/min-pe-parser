@@ -1,6 +1,6 @@
 use super::common::*;
 use crate::types::*;
-use alloc::{string::String, vec, vec::Vec};
+use alloc::{string::String, vec::Vec};
 use core::{ffi::c_void, ptr, ptr::write};
 
 /// Get the names of the sections in the PE file.
@@ -72,6 +72,7 @@ pub unsafe fn get_section_names(pe_start: *const c_void, force_pe64: bool, force
 mod tests {
     use super::*;
     use crate::utils::test_utils::*;
+    use alloc::vec;
 
     #[test]
     fn test_get_section_names_x64() {
