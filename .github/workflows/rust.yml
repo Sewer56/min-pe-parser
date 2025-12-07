@@ -31,12 +31,15 @@ jobs:
           target: ${{ matrix.target }}
           use-cross: ${{ matrix.use-cross }}
           rust-toolchain: nightly
+          rust-project-path: ./src
+          working-directory: src
   
       # Note: The GitHub Runner Images will contain an up to date Rust Stable Toolchain
       #       thus as per recommendation of cargo-semver-checks, we're using stable here.
       - name: Run cargo-semver-checks
         if: github.event_name == 'pull_request' || startsWith(github.ref, 'refs/tags/')
         shell: bash
+        working-directory: src
         run: |
           SEARCH_RESULT=$(cargo search "^min-pe-parser$" --limit 1)
 
@@ -50,6 +53,22 @@ jobs:
             echo "No previous version found on crates.io. Skipping semver checks."
           fi
 
+      - name: Check documentation is valid
+        if: github.event_name == 'pull_request' || startsWith(github.ref, 'refs/tags/')
+        working-directory: src
+        run: cargo doc --workspace --all-features --document-private-items --target ${{ matrix.target }}
+
+      - name: Run linter
+        if: github.event_name == 'pull_request' || startsWith(github.ref, 'refs/tags/')
+        working-directory: src
+        run: cargo clippy --workspace --all-features --target ${{ matrix.target }} -- -D warnings
+
+      - name: Run formatter check
+        uses: actions-rust-lang/rustfmt@v1
+        if: github.event_name == 'pull_request' || startsWith(github.ref, 'refs/tags/')
+        with:
+          manifest-path: src/Cargo.toml
+
   publish-crate:
     permissions:
       contents: write
@@ -59,9 +78,19 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     steps:
-      - name: Publish Rust Crate and Artifacts  
-        uses: Reloaded-Project/devops-publish-action@v1
+      - uses: actions/checkout@v4
         with:
-          crates-io-token: ${{ secrets.CRATES_IO_TOKEN }}
-          rust-project-paths: |
-            .
+          fetch-depth: 0
+
+      - name: Publish Rust Crate and Artifacts
+        uses: Reloaded-Project/devops-publish-action@v3
+        with:
+          rust-crates-io-token: ${{ secrets.CRATES_IO_TOKEN }}
+          rust-cargo-project-paths: |
+            src/min-pe-parser
+          changelog-enabled: 'true'
+          changelog-template: .github/changelog.hbs
+          changelog-is-release: ${{ startsWith(github.ref, 'refs/tags/') }}
+          changelog-release-tag: ${{ github.ref_name }}
+          changelog-override-starting-version: 'true'
+          changelog-hide-credit: 'true'

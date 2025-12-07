@@ -78,72 +78,9 @@ The `force_pe64` and `force_pe32` flags are used to force the parser to interpre
 a specific format. This is a compiler hint that can be used to say 'I will only ever deal with PE32'
 files, etc. Saves a few instructions.
 
-## Development
+## Developer Manual
 
-How to develop this project.
-
-***Clone this Repository:***
-```bash
-# When cloning, make sure symlinks are enabled
-git clone -c core.symlinks=true https://github.com/Sewer56/min-pe-parser.git
-```
-
-***Install Rust:***
-- Install the [Rust Toolchain.][rust-toolchain]***Setup IDE***
-- This repository is fully with VSCode. [Guidance below](#visual-studio-code-integration).
-### Visual Studio Code Integration
-
-`Code`/`VSCode` is the de-facto Rust development environment.  
-
-The following extensions are required:  
-- [rust-analyzer][rust-analyzer] for Rust support.  
-- [coverage-gutters][coverage-gutters] for Coverage support.  
-- [CodeLLDB][codelldb] for debugging.  
-- [crates](https://marketplace.visualstudio.com/items?itemName=serayuzgur.crates) easier dependency management.  
-
-The VSCode configuration in Reloaded projects (`.vscode`) contain the following:  
-- Run Rust linter `clippy` on Save.  
-- Run code format `rustfmt` on Save.  
-- Tasks for common operations (generate documentation, active CI/CD etc.).  
-
-These configurations are in the `.vscode` folder; and the tasks can be ran via `Ctrl+Shift+P -> Run Task`.  
-
-#### Test Coverage
-
-First install or update `tarpaulin`:
-
-```bash
-cargo install cargo-tarpaulin
-```
-
-To run Coverage, run task (`Ctrl+Shift+P -> Run Task`), you should see something similar to: 
-
-| Task                   | Description                                                                |
-| ---------------------- | -------------------------------------------------------------------------- |
-| Cargo Watch Tarpaulin  | Automatically runs tests and updates coverage on save.                     |
-| Generate Code Coverage | Manually generate code coverage (`cobertura.xml`, `tarpaulin-report.html`) |
-
-The `tarpaulin-report.html` file can be opened in VSCode (`Show Preview`) for a live view.
-
-For GUI integration, run action `Coverage Gutter: Watch` (in `Ctrl+Shift+P` actions menu).
-
-
-## File Layout
-
-The following is the expected file layout for your project:
-
-```
-.vscode/
-docs/
-src/
-Cargo.toml
-mkdocs.yml
-```
-
-The `docs` folder, and `mkdocs.yml` contain [MkDocs Material documentation][mkdocs-material] for your project.  
-The `src` folder should contains all source code for your project.  
-
-`Cargo.toml` should be in the root of the project.  
+For step-by-step development guidance, see the [Developer Manual](https://reloaded-project.github.io/reloaded-templates-rust/manual/).
 
 ## Releasing a New Version
 
@@ -151,22 +88,10 @@ Make a tag, aptly named after the current version of the project. For instance, 
 
 ## Contributing
 
-See [CONTRIBUTING](CONTRIBUTING.MD) for guidance on how to contribute to this project.  
+We welcome contributions! See the [Contributing Guide](https://reloaded-project.github.io/reloaded-templates-rust/manual/#contributing) for details.
 
 ## License
 
-Licensed under [GPL v3 (with Reloaded FAQ)](./LICENSE).  
+Licensed under [GPL v3 (with Reloaded FAQ)](./LICENSE).
 
-[Learn more about Reloaded's general choice of licensing for projects.][reloaded-license].  
-
-[codecov]: https://about.codecov.io/
-[codelldb]: https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb
-[coverage-gutters]: https://marketplace.visualstudio.com/items?itemName=ryanluker.vscode-coverage-gutters 
-[crates-io-key]: https://crates.io/settings/tokens
-[nuget-key]: https://www.nuget.org/account/apikeys
-[target-triple]: https://doc.rust-lang.org/nightly/rustc/platform-support.html
 [docs]: https://min-pe-parser.github.io/min-pe-parser
-[mkdocs-material]: https://squidfunk.github.io/mkdocs-material/
-[reloaded-license]: https://reloaded-project.github.io/Reloaded.MkDocsMaterial.Themes.R2/Pages/license/
-[rust-analyzer]: https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer
-[rust-toolchain]: https://www.rust-lang.org/tools/install

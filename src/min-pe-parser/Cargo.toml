@@ -4,8 +4,8 @@ version = "0.1.0"
 edition = "2021"
 description = "An extremely minimal optimized PE parser. Only supports features used by Reloaded3 libraries/runtime."
 repository = "https://github.com/Sewer56/min-pe-parser"
-license-file = "LICENSE"
-readme = "README.md"
+license-file = "../../LICENSE"
+readme = "../../README.MD"
 include = ["src/**/*"]
 
 [dependencies]
@@ -22,19 +22,3 @@ std = []
 
 [lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ['cfg(tarpaulin_include)', 'cfg(tarpaulin)'] }
-
-# Profile Build
-[profile.profile]
-inherits = "release"
-debug = true
-codegen-units = 1
-lto = true
-strip = false  # No stripping!!
-
-# Optimized Release Build
-[profile.release]
-codegen-units = 1
-lto = true
-strip = true  # Automatically strip symbols from the binary.
-panic = "abort"
-

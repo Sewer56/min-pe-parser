@@ -1,4 +1,14 @@
+# Build artifacts
 target
-/Cargo.lock
+
+# Fuzzing artifacts
 /fuzz/hfuzz_target
+
+# Coverage artifacts
 tarpaulin_report.html
+
+# LLM Prompts
+PROMPT.md
+PROMPT-*.md
+PROMPT.MD
+PROMPT-*.MD
