@@ -5,7 +5,7 @@ edition = "2021"
 description = "An extremely minimal optimized PE parser. Only supports features used by Reloaded3 libraries/runtime."
 repository = "https://github.com/Sewer56/min-pe-parser"
 license-file = "../../LICENSE"
-readme = "../../README.MD"
+readme = "README.MD"
 include = ["src/**/*"]
 
 [dependencies]

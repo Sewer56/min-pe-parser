@@ -1,5 +1,4 @@
-//! # Some Cool Reloaded Library
-//! Here's the crate documentation.
+#![doc = include_str!(concat!("../", env!("CARGO_PKG_README")))]
 #![feature(optimize_attribute)]
 #![no_std]
 
