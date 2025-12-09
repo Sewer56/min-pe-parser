@@ -1,12 +1,12 @@
-name: Test, Upload Coverage and Release Rust
+name: Rust
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
     tags:
-      - '*'
+      - "*"
   pull_request:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -33,7 +33,7 @@ jobs:
           rust-toolchain: nightly
           rust-project-path: ./src
           working-directory: src
-  
+
       # Note: The GitHub Runner Images will contain an up to date Rust Stable Toolchain
       #       thus as per recommendation of cargo-semver-checks, we're using stable here.
       - name: Run cargo-semver-checks
@@ -90,9 +90,9 @@ jobs:
           rust-crates-io-token: ${{ secrets.CRATES_IO_TOKEN }}
           rust-cargo-project-paths: |
             src/min-pe-parser
-          changelog-enabled: 'true'
+          changelog-enabled: "true"
           changelog-template: .github/changelog.hbs
           changelog-is-release: ${{ startsWith(github.ref, 'refs/tags/') }}
           changelog-release-tag: ${{ github.ref_name }}
-          changelog-override-starting-version: 'true'
-          changelog-hide-credit: 'true'
+          changelog-override-starting-version: "true"
+          changelog-hide-credit: "true"
